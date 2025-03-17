@@ -25,7 +25,6 @@ export class CreateApartmentDto {
   project: string;
 
   @IsNumber({ maxDecimalPlaces: 2 })
-  @Type(() => String)
   @ApiProperty({ example: 1200 })
   price: string;
 
@@ -40,7 +39,6 @@ export class CreateApartmentDto {
   bathrooms: number;
 
   @IsNumber({ maxDecimalPlaces: 2 })
-  @Type(() => String)
   @ApiProperty({ example: 120 })
   area: string;
 

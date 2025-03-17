@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -44,7 +45,7 @@ export class ApartmentsController {
   @Get(':id')
   @ApiParam({ name: 'id', type: String })
   @ApiOkResponse({ type: Apartment })
-  async findById(@Param('id') id: string) {
+  async findById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.apartmentsService.findById(id);
   }
 
@@ -59,7 +60,10 @@ export class ApartmentsController {
   @ApiParam({ name: 'id', type: String })
   @ApiBody({ type: UpdateApartmentDto })
   @ApiOkResponse({ type: Apartment })
-  async update(@Param('id') id: string, @Body() data: UpdateApartmentDto) {
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() data: UpdateApartmentDto,
+  ) {
     return this.apartmentsService.update(id, data);
   }
 }
