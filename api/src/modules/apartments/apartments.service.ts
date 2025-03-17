@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ApartmentsRepository } from './entity/apartments.repository';
+import { ApartmentsRepository } from './repository/apartments.repository';
 import { CreateApartmentDto } from './dto/create-apartment';
 import { UpdateApartmentDto } from './dto/update-apartment';
 

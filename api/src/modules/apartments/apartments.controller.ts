@@ -17,7 +17,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Apartment } from './entity/apartments.schema';
+import { Apartment } from './types';
 
 @ApiTags('Apartments')
 @Controller('apartments')
@@ -28,6 +28,11 @@ export class ApartmentsController {
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiResponse({
+    status: 200,
+    type: typeof { data: [Apartment], count: Number },
+    description: 'List and counts of apartments',
+  })
   async findAll(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 12,

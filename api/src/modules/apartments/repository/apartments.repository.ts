@@ -1,8 +1,8 @@
 import { DatabaseService } from '@/database/database.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { count, eq, ilike, or } from 'drizzle-orm';
-import { apartments } from './apartments.schema';
-import { Apartment } from '../entity/apartments.schema';
+import { apartments } from '../schema/apartments.schema';
+import { Apartment } from '../types';
 import { CreateApartmentDto } from '../dto/create-apartment';
 import { UpdateApartmentDto } from '../dto/update-apartment';
 
