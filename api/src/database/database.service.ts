@@ -2,6 +2,7 @@ import { env } from '@/config';
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
+import * as schema from './schema';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
@@ -16,7 +17,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       statement_timeout: 10000,
     });
 
-    this.db = drizzle(this.pool);
+    this.db = drizzle(this.pool, { schema });
   }
 
   async onModuleInit() {
