@@ -1,1 +1,1 @@
-export * from '@/modules/apartments/schema/apartments.schema';
+export * from '@/modules/apartments/entity/apartments.schema';

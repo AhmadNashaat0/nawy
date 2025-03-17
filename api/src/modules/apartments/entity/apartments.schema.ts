@@ -23,3 +23,5 @@ export const apartments = pgTable('apartments', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export type Apartment = typeof apartments.$inferSelect;
