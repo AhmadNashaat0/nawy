@@ -55,3 +55,25 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+
+# testing
+/coverage
+
+# next.js
+*/.next/
+*/out/
+
+
+# misc
+.DS_Store
+*.pem
+
+# vercel
+*/.vercel
+
+# typescript
+*/*.tsbuildinfo
+*/next-env.d.ts
