@@ -1,5 +1,5 @@
 import { DatabaseService } from '@/database/database.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { count, eq, ilike, or } from 'drizzle-orm';
 import { apartments } from '../schema/apartments.schema';
 import { Apartment, GetAllApartmentsResponse } from '../types';
@@ -48,9 +48,7 @@ export class ApartmentsRepository {
       .where(eq(apartments.id, id))
       .limit(1);
 
-    if (result.length === 0) throw new NotFoundException();
-
-    return result[0];
+    return result.length === 0 ? undefined : result[0];
   }
 
   async create(data: CreateApartmentDto): Promise<Apartment> {

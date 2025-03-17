@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ApartmentsRepository } from './repository/apartments.repository';
 import { CreateApartmentDto } from './dto/create-apartment';
 import { UpdateApartmentDto } from './dto/update-apartment';
@@ -12,7 +12,9 @@ export class ApartmentsService {
   }
 
   async findById(id: string): Promise<any> {
-    return this.apartmentsRepository.findById(id);
+    const apartment = await this.apartmentsRepository.findById(id);
+    if (!apartment) throw new NotFoundException();
+    return apartment;
   }
 
   async create(data: CreateApartmentDto): Promise<any> {
@@ -20,6 +22,8 @@ export class ApartmentsService {
   }
 
   async update(id: string, data: UpdateApartmentDto): Promise<any> {
+    const apartment = await this.apartmentsRepository.findById(id);
+    if (!apartment) throw new NotFoundException();
     return this.apartmentsRepository.update(id, data);
   }
 }
