@@ -2,7 +2,7 @@ import { DatabaseService } from '@/database/database.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { count, eq, ilike, or } from 'drizzle-orm';
 import { apartments } from '../schema/apartments.schema';
-import { Apartment } from '../types';
+import { Apartment, GetAllApartmentsResponse } from '../types';
 import { CreateApartmentDto } from '../dto/create-apartment';
 import { UpdateApartmentDto } from '../dto/update-apartment';
 
@@ -18,7 +18,7 @@ export class ApartmentsRepository {
     page: number;
     limit: number;
     search?: string;
-  }): Promise<{ data: Apartment[]; count: number }> {
+  }): Promise<GetAllApartmentsResponse> {
     const offset = (page - 1) * limit;
     const where = or(
       ilike(apartments.name, `%${search}%`),
