@@ -19,6 +19,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import AmenitiesForm from "./amenities-form";
 import ImageUploadForm from "./images-form";
+import { uploadImagesFromUrl } from "../../utils/upload-images-from-url";
+import { createApartment } from "../../api/create-apartment";
+import { toast } from "sonner";
 
 export function ApartmentForm() {
   const form = useForm<ApartmentForm>({
@@ -28,47 +31,56 @@ export function ApartmentForm() {
       number: "",
       project: "",
       description: "",
-      price: 0,
-      area: 0,
-      bedrooms: 0,
-      bathrooms: 0,
+      price: "" as unknown as number,
+      area: "" as unknown as number,
+      bedrooms: "" as unknown as number,
+      bathrooms: "" as unknown as number,
       images: [],
       amenities: [],
     },
   });
-  function onSubmit(values: ApartmentForm) {
-    console.log(values);
+
+  async function onSubmit(values: ApartmentForm) {
+    values.images = await uploadImagesFromUrl(values.images);
+    const response = await createApartment(values);
+    if (response) {
+      toast.success("Apartment created successfully!");
+    } else {
+      toast.error("Something went wrong!");
+    }
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Unit Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter unit name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="number"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Unit Number</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter unit number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Unit Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter unit name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="number"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Unit Number</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter unit number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="project"
@@ -98,7 +110,7 @@ export function ApartmentForm() {
             </FormItem>
           )}
         />
-        <div className="flex gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="price"
@@ -134,7 +146,7 @@ export function ApartmentForm() {
             )}
           />
         </div>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="bedrooms"

@@ -25,9 +25,12 @@ export const apartmentFormSchema = z.object({
   bathrooms: z.coerce.number().min(0, {
     message: "bathrooms must be at least 0 bathrooms.",
   }),
-  images: z.array(z.string()).min(1, {
-    message: "images must be at least 1 image.",
-  }),
+  images: z
+    .array(z.string())
+    .min(1, {
+      message: "images must be at least 1 image.",
+    })
+    .max(10, "images must be at most 10 images."),
   amenities: z.array(z.string()).min(0, {
     message: "amenities must be at least 1 amenity.",
   }),
