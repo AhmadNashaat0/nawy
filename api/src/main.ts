@@ -11,7 +11,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = env.PORT;
 
-  app.enableCors();
+  app.enableCors({
+    origin: 'http://localhost:3000', // Allow requests only from frontend
+    credentials: true, // Allow cookies and authentication headers
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
+
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',
