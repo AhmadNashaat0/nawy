@@ -1,3 +1,9 @@
+import { ApartmentForm } from "@/features/apartments/components/forms/apartment-form";
+
 export default function CreateApartmentPage() {
-  return <div>Create Apartment</div>;
+  return (
+    <div>
+      <ApartmentForm />
+    </div>
+  );
 }
