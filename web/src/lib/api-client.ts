@@ -29,7 +29,7 @@ function buildUrlWithParams(
 async function fetchApi<T>(
   url: string,
   options: RequestOptions = {}
-): Promise<T> {
+): Promise<T | undefined> {
   const { method = "GET", body, params, cache = "no-store", next } = options;
 
   const fullUrl = buildUrlWithParams(`${env.API_URL}${url}`, params);
@@ -47,30 +47,40 @@ async function fetchApi<T>(
   });
 
   if (!response.ok) {
-    const message = (await response.json()).message || response.statusText;
-    if (typeof window !== "undefined") {
-      toast.error(message);
-    }
-    throw new Error(message);
+    const message = (await response.json()) || response.statusText;
+    console.error(message);
+    return undefined;
   }
 
   return response.json();
 }
 
 export const api = {
-  get<T>(url: string, options?: RequestOptions): Promise<T> {
+  get<T>(url: string, options?: RequestOptions): Promise<T | undefined> {
     return fetchApi<T>(url, { ...options, method: "GET" });
   },
-  post<T>(url: string, body?: any, options?: RequestOptions): Promise<T> {
+  post<T>(
+    url: string,
+    body?: any,
+    options?: RequestOptions
+  ): Promise<T | undefined> {
     return fetchApi<T>(url, { ...options, method: "POST", body });
   },
-  put<T>(url: string, body?: any, options?: RequestOptions): Promise<T> {
+  put<T>(
+    url: string,
+    body?: any,
+    options?: RequestOptions
+  ): Promise<T | undefined> {
     return fetchApi<T>(url, { ...options, method: "PUT", body });
   },
-  patch<T>(url: string, body?: any, options?: RequestOptions): Promise<T> {
+  patch<T>(
+    url: string,
+    body?: any,
+    options?: RequestOptions
+  ): Promise<T | undefined> {
     return fetchApi<T>(url, { ...options, method: "PATCH", body });
   },
-  delete<T>(url: string, options?: RequestOptions): Promise<T> {
+  delete<T>(url: string, options?: RequestOptions): Promise<T | undefined> {
     return fetchApi<T>(url, { ...options, method: "DELETE" });
   },
 };
