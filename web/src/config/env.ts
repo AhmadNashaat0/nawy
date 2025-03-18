@@ -6,7 +6,11 @@ const createEnv = () => {
     API_URL: z.string(),
   });
 
-  const parsedEnv = EnvSchema.safeParse(process.env);
+  const envVars = {
+    API_URL: process.env.NEXT_PUBLIC_API_URL,
+  };
+
+  const parsedEnv = EnvSchema.safeParse(envVars);
 
   if (!parsedEnv.success) {
     throw new Error(
