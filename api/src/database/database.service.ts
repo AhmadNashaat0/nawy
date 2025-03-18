@@ -1,11 +1,17 @@
 import { env } from '@/config';
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  OnModuleDestroy,
+  OnModuleInit,
+  Logger,
+} from '@nestjs/common';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from './schema';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
+  private readonly logger = new Logger(DatabaseService.name);
   pool: Pool;
   db: ReturnType<typeof drizzle>;
 
@@ -21,6 +27,18 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
+    try {
+      const client = await this.pool.connect();
+      client.release();
+      this.logger.log('Successfully connected to database');
+    } catch (error) {
+      this.logger.error(
+        `Failed to connect to database: ${error.message}`,
+        error.stack,
+      );
+      throw new Error(`Database connection failed.`);
+    }
+
     this.pool.on('error', (err) => {
       console.error('Unexpected error on idle database client', err);
     });
