@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,12 +34,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NuqsAdapter>
-          <NavBar />
-          <main className="w-full max-w-6xl mx-auto py-2 md:py-3 px-3 md:px-5">
-            {children}
-            {modal}
-          </main>
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NavBar />
+            <main className="w-full max-w-6xl mx-auto py-2 md:py-3 px-3 md:px-5">
+              {children}
+              {modal}
+            </main>
+            <Toaster />
+          </ThemeProvider>
         </NuqsAdapter>
       </body>
     </html>

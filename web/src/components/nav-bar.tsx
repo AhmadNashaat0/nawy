@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ModeToggle } from "./mode-toggle";
 
 export function NavBar() {
   return (
     <nav className="w-full bg-background sticky top-0 shadow-xs z-10">
-      <div className="w-full max-w-6xl mx-auto py-2 md:py-3 px-3 md:px-5 flex justify-between items-center">
+      <div className="w-full max-w-6xl mx-auto py-2 px-3 md:px-5 flex justify-between items-center">
         <Link href="/" className="cursor-pointer">
           <Image
             src="/nawy.svg"
@@ -21,7 +22,7 @@ export function NavBar() {
             className="block md:hidden"
           />
         </Link>
-        <div>test</div>
+        <ModeToggle />
       </div>
     </nav>
   );
