@@ -6,8 +6,10 @@ import {
   Logger,
 } from '@nestjs/common';
 import { drizzle } from 'drizzle-orm/node-postgres';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { Pool } from 'pg';
 import * as schema from './schema';
+import { seedApartments } from './utils/seed';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
@@ -38,6 +40,15 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       );
       throw new Error(`Database connection failed.`);
     }
+
+    try {
+      await migrate(this.db, { migrationsFolder: 'src/database/migrations' });
+      this.logger.log('Migrations completed');
+    } catch (error) {
+      this.logger.error(`Migration failed: ${error.message}`, error.stack);
+    }
+
+    await seedApartments(this.db, schema);
 
     this.pool.on('error', (err) => {
       console.error('Unexpected error on idle database client', err);
