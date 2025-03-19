@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/breadcrumb";
 import { HomeIcon } from "lucide-react";
 
-export default function BreadcrumbBar() {
+export default function BreadcrumbBar({ page }: { page: string }) {
   return (
-    <Breadcrumb className="max-w-[160px]">
+    <Breadcrumb>
       <BreadcrumbList className="">
         <BreadcrumbItem>
           <BreadcrumbLink href="/">
@@ -20,7 +20,7 @@ export default function BreadcrumbBar() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>Apartment</BreadcrumbPage>
+          <BreadcrumbPage className="text-sm">{page}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

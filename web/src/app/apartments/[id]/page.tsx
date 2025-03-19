@@ -18,7 +18,7 @@ export default async function ApartmentPage({
   if (!apartment) return notFound();
   return (
     <section className="py-4 space-y-4">
-      <BreadcrumbBar />
+      <BreadcrumbBar page="Apartment" />
       <div className="relative grid grid-cols-12 gap-6 p-2 border rounded-lg group">
         <ImagesCarousel
           images={apartment.images}
