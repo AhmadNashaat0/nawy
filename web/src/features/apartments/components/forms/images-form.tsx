@@ -26,26 +26,28 @@ export default function ImageUploadForm({ field }: { field: any }) {
 
   return (
     <div className="space-y-2">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => fileInputRef.current?.click()}
-            className="flex gap-2"
-          >
-            <Upload size={16} />
-            Select Images
-          </Button>
-          <Input
-            id="images"
-            type="file"
-            accept="image/*"
-            multiple
-            className="hidden"
-            onChange={handleFileChange}
-            ref={fileInputRef}
-          />
+      <div className="flex justify-between sm:items-center">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+          <div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex gap-2"
+            >
+              <Upload size={16} />
+              Select Images
+            </Button>
+            <Input
+              id="images"
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+            />
+          </div>
           <p className="text-sm text-muted-foreground">
             {field.value.length} {field.value.length === 1 ? "image" : "images"}
             {" selected"}

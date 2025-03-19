@@ -134,11 +134,18 @@ export function ApartmentForm({
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter unit price"
-                    type="number"
-                    {...field}
-                  />
+                  <div className="relative">
+                    <Input
+                      className="pe-10"
+                      placeholder="Enter unit price"
+                      type="number"
+                      min={1}
+                      {...field}
+                    />
+                    <span className="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-sm peer-disabled:opacity-50">
+                      EGP
+                    </span>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -151,11 +158,18 @@ export function ApartmentForm({
               <FormItem>
                 <FormLabel>Area</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter unit area"
-                    type="number"
-                    {...field}
-                  />
+                  <div className="relative">
+                    <Input
+                      placeholder="Enter unit area"
+                      className="pe-10"
+                      type="number"
+                      min={1}
+                      {...field}
+                    />
+                    <span className="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-sm peer-disabled:opacity-50">
+                      m²
+                    </span>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -173,6 +187,7 @@ export function ApartmentForm({
                   <Input
                     placeholder="Enter number of the bedrooms"
                     type="number"
+                    min={0}
                     {...field}
                   />
                 </FormControl>
@@ -190,6 +205,7 @@ export function ApartmentForm({
                   <Input
                     placeholder="Enter number of the bathrooms"
                     type="number"
+                    min={0}
                     {...field}
                   />
                 </FormControl>
