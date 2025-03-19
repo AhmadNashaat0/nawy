@@ -63,11 +63,11 @@ export default async function ApartmentPage({
       <div className="pt-6 flex flex-col gap-4">
         <h4 className="text-xl font-medium">Amenities</h4>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {apartment.amenities.map((amenity) => {
+          {apartment.amenities.map((amenity, index) => {
             const Icon =
               amenitiesIconList[amenity as keyof typeof amenitiesIconList].Icon;
             return (
-              <div className="p-4 rounded-xl border" key={amenity}>
+              <div className="p-4 rounded-xl border" key={index}>
                 <Icon />
                 {amenity}
               </div>

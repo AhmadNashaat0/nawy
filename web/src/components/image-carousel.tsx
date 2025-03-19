@@ -19,8 +19,8 @@ export function ImagesCarousel({
   return (
     <Carousel className={cn("relative rounded-lg overflow-hidden", className)}>
       <CarouselContent className="-ml-4">
-        {images.map((img) => (
-          <CarouselItem className="pl-4" key={img}>
+        {images.map((img, index) => (
+          <CarouselItem className="pl-4" key={index}>
             <Image
               src={img}
               alt={img}
