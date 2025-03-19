@@ -22,11 +22,17 @@ import ImageUploadForm from "./images-form";
 import { uploadImagesFromUrl } from "../../utils/upload-images-from-url";
 import { createApartment } from "../../api/create-apartment";
 import { toast } from "sonner";
+import { updateApartment } from "../../api/update-apartment";
+import { Apartment } from "../../types";
 
-export function ApartmentForm() {
+export function ApartmentForm({
+  defaultValues,
+}: {
+  defaultValues?: Apartment;
+}) {
   const form = useForm<ApartmentForm>({
     resolver: zodResolver(apartmentFormSchema),
-    defaultValues: {
+    defaultValues: defaultValues ?? {
       name: "",
       number: "",
       project: "",
@@ -42,9 +48,14 @@ export function ApartmentForm() {
 
   async function onSubmit(values: ApartmentForm) {
     values.images = await uploadImagesFromUrl(values.images);
-    const response = await createApartment(values);
+    let response;
+    if (defaultValues) {
+      response = await updateApartment(defaultValues.id, values);
+    } else {
+      response = await createApartment(values);
+    }
     if (response) {
-      toast.success("Apartment created successfully!");
+      toast.success("Apartment saved successfully!");
     } else {
       toast.error("Something went wrong!");
     }
