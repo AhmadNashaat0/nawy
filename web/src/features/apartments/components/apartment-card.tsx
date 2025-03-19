@@ -16,12 +16,12 @@ export function ApartmentCard({ apartment }: { apartment: Apartment }) {
       <div className="py-2">
         <div className="flex items-start justify-between">
           <div>
-            <h4 className="text-base/4 font-medium text-foreground">
-              {`${apartment.name} - ${apartment.number}`}
+            <h4 className="text-sm/4 font-medium text-foreground">
+              {`${apartment.name} . ${apartment.number}`}
             </h4>
             <p className="text-sm text-muted-foreground">{apartment.project}</p>
           </div>
-          <div className="text-sm text-muted-foreground flex gap-2">
+          <div className="text-sm text-muted-foreground flex shrink-0 gap-1">
             <p className="text-sm flex items-center gap-1">
               <BedSingle className="w-4 h-4" /> {apartment.bedrooms}
             </p>
@@ -35,7 +35,7 @@ export function ApartmentCard({ apartment }: { apartment: Apartment }) {
             </p>
           </div>
         </div>
-        <h2 className="pt-1.5 font-bold text-lg">
+        <h2 className="pt-0.5 font-bold text-lg">
           {new Intl.NumberFormat(undefined, {
             style: "currency",
             currency: "EGP",
