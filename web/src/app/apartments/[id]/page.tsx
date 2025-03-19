@@ -1,7 +1,10 @@
 import { ImagesCarousel } from "@/components/image-carousel";
+import { buttonVariants } from "@/components/ui/button";
 import { getApartment } from "@/features/apartments/api/get-apartment";
 import { amenitiesIconList } from "@/features/apartments/utils/amenities-list";
-import { BathIcon, BedSingle, Grid2X2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { BathIcon, BedSingle, Grid2X2, PenIcon } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function ApartmentPage({
@@ -14,7 +17,7 @@ export default async function ApartmentPage({
   if (!apartment) return notFound();
   return (
     <section className="py-8">
-      <div className="grid grid-cols-12 gap-6 p-2 border rounded-lg group">
+      <div className="relative grid grid-cols-12 gap-6 p-2 border rounded-lg group">
         <ImagesCarousel images={apartment.images} className="col-span-4" />
         <div className="col-span-8 flex flex-col gap-3">
           <div>
@@ -47,6 +50,15 @@ export default async function ApartmentPage({
             <p className="text-muted-foreground">{apartment.description}</p>
           </div>
         </div>
+        <Link
+          href={`/apartments/${apartment.id}/update`}
+          className={cn(
+            "absolute top-1 right-1",
+            buttonVariants({ variant: "outline" })
+          )}
+        >
+          <PenIcon />
+        </Link>
       </div>
       <div className="pt-6 flex flex-col gap-4">
         <h4 className="text-xl font-medium">Amenities</h4>
