@@ -9,14 +9,14 @@ import Link from "next/link";
 export default async function Home(props: {
   searchParams?: Promise<{
     search?: string;
-    page?: string;
+    page?: number;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const search = searchParams?.search || "";
-  const page = searchParams?.page || "";
+  const page = searchParams?.page || 1;
 
-  const apartments = await getApartments();
+  const apartments = await getApartments({ search, page });
   return (
     <main className="space-y-4">
       <section className="flex justify-between items-center">

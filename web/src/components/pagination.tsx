@@ -32,7 +32,7 @@ export default function PaginationBar({ totalPages }: PaginationProps) {
               variant="outline"
               className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
               aria-disabled={page === 1 ? true : undefined}
-              onChange={(e) => setPage(page - 1 < 1 ? 1 : page - 1)}
+              onClick={(e) => setPage(page - 1 < 1 ? 1 : page - 1)}
             >
               Previous
             </Button>
@@ -42,7 +42,7 @@ export default function PaginationBar({ totalPages }: PaginationProps) {
               variant="outline"
               className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
               aria-disabled={page === totalPages ? true : undefined}
-              onChange={(e) =>
+              onClick={(e) =>
                 setPage(page + 1 > totalPages ? totalPages : page + 1)
               }
             >
