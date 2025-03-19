@@ -42,8 +42,8 @@ export default function RootLayout({
           >
             <NavBar />
             <main className="w-full max-w-6xl mx-auto py-2 md:py-3 px-3 md:px-5">
-              {children}
               {modal}
+              {children}
             </main>
             <Toaster />
           </ThemeProvider>
