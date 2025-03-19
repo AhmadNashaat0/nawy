@@ -1,6 +1,6 @@
 import { DatabaseService } from '@/database/database.service';
 import { Injectable } from '@nestjs/common';
-import { count, eq, ilike, or } from 'drizzle-orm';
+import { count, desc, eq, ilike, or } from 'drizzle-orm';
 import { apartments } from '../schema/apartments.schema';
 import { Apartment, GetAllApartmentsResponse } from '../types';
 import { CreateApartmentDto } from '../dto/create-apartment';
@@ -31,7 +31,8 @@ export class ApartmentsRepository {
       .from(apartments)
       .where(where)
       .offset(offset)
-      .limit(limit);
+      .limit(limit)
+      .orderBy(desc(apartments.createdAt));
 
     const dataCount = await this.databaseService.db
       .select({ count: count() })

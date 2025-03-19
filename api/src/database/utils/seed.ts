@@ -77,6 +77,7 @@ export async function seedApartments(db, schema) {
           ],
           arraySize: 3,
         }),
+        createdAt: funcs.default({ defaultValue: new Date() }),
       },
       count: 20,
     },

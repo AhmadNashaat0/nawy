@@ -24,12 +24,14 @@ import { createApartment } from "../../api/create-apartment";
 import { toast } from "sonner";
 import { updateApartment } from "../../api/update-apartment";
 import { Apartment } from "../../types";
+import { useRouter } from "next/navigation";
 
 export function ApartmentForm({
   defaultValues,
 }: {
   defaultValues?: Apartment;
 }) {
+  const router = useRouter();
   const form = useForm<ApartmentForm>({
     resolver: zodResolver(apartmentFormSchema),
     defaultValues: defaultValues ?? {
@@ -56,6 +58,7 @@ export function ApartmentForm({
     }
     if (response) {
       toast.success("Apartment saved successfully!");
+      router.push(`/apartments/${(response as any).id}`);
     } else {
       toast.error("Something went wrong!");
     }
