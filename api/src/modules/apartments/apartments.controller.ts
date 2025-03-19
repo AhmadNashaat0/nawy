@@ -45,7 +45,7 @@ export class ApartmentsController {
   @Get(':id')
   @ApiParam({ name: 'id', type: String })
   @ApiOkResponse({ type: Apartment })
-  async findById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+  async findById(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.apartmentsService.findById(id);
   }
 
