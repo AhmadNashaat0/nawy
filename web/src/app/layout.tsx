@@ -2,6 +2,7 @@ import { NavBar } from "@/components/nav-bar";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar />
-        <main className="w-full max-w-6xl mx-auto py-2 md:py-3 px-3 md:px-5">
-          {children}
-          {modal}
-        </main>
-        <Toaster />
+        <NuqsAdapter>
+          <NavBar />
+          <main className="w-full max-w-6xl mx-auto py-2 md:py-3 px-3 md:px-5">
+            {children}
+            {modal}
+          </main>
+          <Toaster />
+        </NuqsAdapter>
       </body>
     </html>
   );

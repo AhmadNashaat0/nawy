@@ -1,12 +1,22 @@
+import PaginationBar from "@/components/pagination";
+import { SearchAndFilterBar } from "@/components/search-and-filter-bar";
 import { buttonVariants } from "@/components/ui/button";
+import { getApartments } from "@/features/apartments/api/get-apartments";
 import { ApartmentsList } from "@/features/apartments/components/apartments-list";
-import { ApartmentsResponse } from "@/features/apartments/types";
-import { api } from "@/lib/api-client";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 
-export default async function Home() {
-  const apartments = await api.get<ApartmentsResponse>("/apartments");
+export default async function Home(props: {
+  searchParams?: Promise<{
+    search?: string;
+    page?: string;
+  }>;
+}) {
+  const searchParams = await props.searchParams;
+  const search = searchParams?.search || "";
+  const page = searchParams?.page || "";
+
+  const apartments = await getApartments();
   return (
     <main className="space-y-4">
       <section className="flex justify-between items-center">
@@ -18,7 +28,11 @@ export default async function Home() {
           <PlusIcon /> Add Apartment
         </Link>
       </section>
+      <SearchAndFilterBar />
       <ApartmentsList apartments={apartments?.data} />
+      {apartments && (
+        <PaginationBar totalPages={Math.ceil(Number(apartments.count) / 12)} />
+      )}
     </main>
   );
 }
