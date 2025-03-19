@@ -192,7 +192,10 @@ function CarouselPrevious({
         className
       )}
       disabled={!canScrollPrev}
-      onClick={scrollPrev}
+      onClick={(e) => {
+        e.stopPropagation();
+        scrollPrev();
+      }}
       {...props}
     >
       <ArrowLeft />
@@ -222,7 +225,10 @@ function CarouselNext({
         className
       )}
       disabled={!canScrollNext}
-      onClick={scrollNext}
+      onClick={(e) => {
+        e.stopPropagation();
+        scrollNext();
+      }}
       {...props}
     >
       <ArrowRight />
@@ -269,7 +275,10 @@ const CarouselDots = React.forwardRef<
                 : "bg-gray-300 hover:bg-gray-300"
             }`}
             aria-label={`Go to slide ${i + 1}`}
-            onClick={() => api?.scrollTo(i)}
+            onClick={(e) => {
+              e.stopPropagation();
+              api?.scrollTo(i);
+            }}
           />
         ))}
       </div>

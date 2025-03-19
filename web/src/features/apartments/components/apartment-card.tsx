@@ -1,12 +1,14 @@
+"use client";
 import { BathIcon, BedSingle, Grid2X2 } from "lucide-react";
-import Link from "next/link";
 import { Apartment } from "../types";
 import { ImagesCarousel } from "@/components/image-carousel";
+import { useRouter } from "next/navigation";
 
 export function ApartmentCard({ apartment }: { apartment: Apartment }) {
+  const router = useRouter();
   return (
-    <Link
-      href={`/apartments/${apartment.id}`}
+    <div
+      onClick={() => router.push(`/apartments/${apartment.id}`)}
       key={apartment.id}
       className="group"
     >
@@ -40,6 +42,6 @@ export function ApartmentCard({ apartment }: { apartment: Apartment }) {
           }).format(Number(apartment.price))}
         </h2>
       </div>
-    </Link>
+    </div>
   );
 }
