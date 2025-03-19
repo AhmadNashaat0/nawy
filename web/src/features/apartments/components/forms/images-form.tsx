@@ -1,12 +1,12 @@
 "use client";
 
-import type React from "react";
-import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, Upload, ImageIcon } from "lucide-react";
+import { ImageIcon, Upload, X } from "lucide-react";
 import Image from "next/image";
+import type React from "react";
+import { useRef } from "react";
 
 export default function ImageUploadForm({ field }: { field: any }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
