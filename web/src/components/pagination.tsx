@@ -15,9 +15,7 @@ type PaginationProps = {
 export default function PaginationBar({ totalPages }: PaginationProps) {
   const [page, setPage] = useQueryState(
     "page",
-    parseAsInteger
-      .withDefault(1)
-      .withOptions({ shallow: false, throttleMs: 500 })
+    parseAsInteger.withDefault(1).withOptions({ shallow: false })
   );
   return (
     <div className="flex items-center justify-between gap-3">

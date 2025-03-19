@@ -18,19 +18,24 @@ export default async function Home(props: {
 
   const apartments = await getApartments({ search, page });
   return (
-    <main className="space-y-4">
+    <main className="pt-4 space-y-4">
       <section className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Apartments</h2>
+        <h2 className="text-2xl/6 font-bold">Apartments</h2>
         <Link
           href="/apartments/create"
-          className={buttonVariants({ variant: "outline" })}
+          className={buttonVariants({ variant: "outline", size: "sm" })}
         >
-          <PlusIcon /> Add Apartment
+          <span className="hidden sm:flex items-center gap-1">
+            <PlusIcon /> Add Apartment
+          </span>
+          <span className="flex items-center gap-1 sm:hidden ">
+            <PlusIcon /> Add
+          </span>
         </Link>
       </section>
       <SearchAndFilterBar />
       <ApartmentsList apartments={apartments?.data} />
-      {apartments && (
+      {apartments && apartments.count > 0 && (
         <PaginationBar totalPages={Math.ceil(Number(apartments.count) / 12)} />
       )}
     </main>

@@ -1,11 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import {
-  type ApartmentForm,
-  apartmentFormSchema,
-} from "@/features/apartments/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,14 +11,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import AmenitiesForm from "./amenities-form";
-import ImageUploadForm from "./images-form";
-import { uploadImagesFromUrl } from "../../utils/upload-images-from-url";
-import { createApartment } from "../../api/create-apartment";
+import {
+  type ApartmentForm,
+  apartmentFormSchema,
+} from "@/features/apartments/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { createApartment } from "../../api/create-apartment";
 import { updateApartment } from "../../api/update-apartment";
 import { Apartment } from "../../types";
-import { useRouter } from "next/navigation";
+import { uploadImagesFromUrl } from "../../utils/upload-images-from-url";
+import AmenitiesForm from "./amenities-form";
+import ImageUploadForm from "./images-form";
 
 export function ApartmentForm({
   defaultValues,
@@ -33,6 +34,8 @@ export function ApartmentForm({
   defaultValues?: Apartment;
   setOpen?: (open: boolean) => void;
 }) {
+  const [isSubmitting, setSubmitting] = useState(false);
+
   const router = useRouter();
   const form = useForm<ApartmentForm>({
     resolver: zodResolver(apartmentFormSchema),
@@ -51,6 +54,7 @@ export function ApartmentForm({
   });
 
   async function onSubmit(values: ApartmentForm) {
+    setSubmitting(true);
     values.images = await uploadImagesFromUrl(values.images);
     let response;
     if (defaultValues) {
@@ -61,9 +65,13 @@ export function ApartmentForm({
     if (response) {
       toast.success("Apartment saved successfully!");
       setOpen && setOpen(false);
+      router.back();
     } else {
       toast.error("Something went wrong!");
     }
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 0);
   }
 
   return (
@@ -241,7 +249,11 @@ export function ApartmentForm({
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button
+          className="w-full"
+          type="submit"
+          disabled={!form.formState.isValid || isSubmitting}
+        >
           Submit
         </Button>
       </form>

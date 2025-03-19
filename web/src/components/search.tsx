@@ -3,9 +3,15 @@
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
-import { useQueryState } from "nuqs";
+import { parseAsInteger, useQueryState } from "nuqs";
 
 export default function Search(props: { className?: string }) {
+  const [page, setPage] = useQueryState(
+    "page",
+    parseAsInteger
+      .withDefault(1)
+      .withOptions({ shallow: false, throttleMs: 500 })
+  );
   const [search, setSearch] = useQueryState("search", {
     defaultValue: "",
     shallow: false,
@@ -19,7 +25,10 @@ export default function Search(props: { className?: string }) {
           placeholder="Search..."
           type="search"
           value={search ?? ""}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setPage(1);
+            setSearch(e.target.value);
+          }}
         />
         <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
           <SearchIcon size={16} />
