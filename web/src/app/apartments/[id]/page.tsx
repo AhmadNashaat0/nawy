@@ -1,3 +1,4 @@
+import BreadcrumbBar from "@/components/breadcrumb-bar";
 import { ImagesCarousel } from "@/components/image-carousel";
 import { buttonVariants } from "@/components/ui/button";
 import { getApartment } from "@/features/apartments/api/get-apartment";
@@ -16,10 +17,14 @@ export default async function ApartmentPage({
   const apartment = await getApartment({ id });
   if (!apartment) return notFound();
   return (
-    <section className="py-8">
+    <section className="py-4 space-y-4">
+      <BreadcrumbBar />
       <div className="relative grid grid-cols-12 gap-6 p-2 border rounded-lg group">
-        <ImagesCarousel images={apartment.images} className="col-span-4" />
-        <div className="col-span-8 flex flex-col gap-3">
+        <ImagesCarousel
+          images={apartment.images}
+          className="col-span-12 sm:col-span-6 md:col-span-5 lg:col-span-4"
+        />
+        <div className="col-span-12 sm:col-span-6 md:col-span-7 lg:col-span-8 flex flex-col gap-3">
           <div>
             <h4 className="text-2xl font-bold text-foreground">
               {`${apartment.name} - ${apartment.number}`}
@@ -60,7 +65,7 @@ export default async function ApartmentPage({
           <PenIcon />
         </Link>
       </div>
-      <div className="pt-6 flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <h4 className="text-xl font-medium">Amenities</h4>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {apartment.amenities.map((amenity, index) => {
