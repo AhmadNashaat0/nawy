@@ -23,3 +23,16 @@ export const amenitiesList = [
   { value: "9", label: "Commercial strip", Icon: Store },
   { value: "10", label: "Jogging trail", Icon: Footprints },
 ];
+
+export const amenitiesIconList = {
+  "Medical center": { Icon: Hospital },
+  Schools: { Icon: School },
+  "Sports Clubs": { Icon: Dumbbell },
+  "Business Hub": { Icon: Building2 },
+  "Outdoor pools": { Icon: WavesLadder },
+  "Underground parking": { Icon: SquareParking },
+  Clubhouse: { Icon: GlassWater },
+  "bicycles lanes": { Icon: Bike },
+  "Commercial strip": { Icon: Store },
+  "Jogging trail": { Icon: Footprints },
+};
