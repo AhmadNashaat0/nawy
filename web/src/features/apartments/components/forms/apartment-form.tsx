@@ -28,8 +28,10 @@ import { useRouter } from "next/navigation";
 
 export function ApartmentForm({
   defaultValues,
+  setOpen,
 }: {
   defaultValues?: Apartment;
+  setOpen?: (open: boolean) => void;
 }) {
   const router = useRouter();
   const form = useForm<ApartmentForm>({
@@ -58,7 +60,7 @@ export function ApartmentForm({
     }
     if (response) {
       toast.success("Apartment saved successfully!");
-      router.push(`/apartments/${(response as any).id}`);
+      setOpen && setOpen(false);
     } else {
       toast.error("Something went wrong!");
     }

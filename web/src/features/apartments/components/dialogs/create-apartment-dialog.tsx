@@ -9,13 +9,15 @@ import {
 } from "@/components/ui/drawer";
 import { ApartmentForm } from "@/features/apartments/components/forms/apartment-form";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function CreateApartmentDialog() {
   const router = useRouter();
+  const [open, setOpen] = useState(true);
   return (
     <div>
       <Drawer
-        open
+        open={open}
         onOpenChange={(open) => !open && router.back()}
         direction="right"
         activeSnapPoint={0.6}
@@ -29,7 +31,7 @@ export default function CreateApartmentDialog() {
               </DrawerDescription>
             </DrawerHeader>
             <div className="px-4 pt-2">
-              <ApartmentForm />
+              <ApartmentForm setOpen={setOpen} />
             </div>
           </div>
         </DrawerContent>
