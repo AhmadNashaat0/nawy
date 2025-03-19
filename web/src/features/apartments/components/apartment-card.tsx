@@ -1,42 +1,16 @@
-import Image from "next/image";
+import { BathIcon, BedSingle, Grid2X2 } from "lucide-react";
+import Link from "next/link";
 import { Apartment } from "../types";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  CarouselDots,
-} from "@/components/ui/carousel";
-import {
-  AreaChartIcon,
-  BathIcon,
-  BedSingle,
-  Grid2X2,
-  Scan,
-} from "lucide-react";
+import { ImagesCarousel } from "@/components/image-carousel";
 
 export function ApartmentCard({ apartment }: { apartment: Apartment }) {
   return (
-    <div key={apartment.id} className="group">
-      <Carousel className="relative rounded-lg overflow-hidden">
-        <CarouselContent className="-ml-4">
-          {apartment.images.map((img) => (
-            <CarouselItem className="pl-4" key={img}>
-              <Image
-                src={img}
-                alt={apartment.name}
-                width={300}
-                height={200}
-                className="w-full aspect-3/2 object-cover transition-all group-hover:scale-105"
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselDots className="absolute left-1/2 -translate-x-1/2 bottom-1" />
-        <CarouselPrevious className="left-1.5 transition-all hidden group-hover:flex" />
-        <CarouselNext className="right-1.5 transition-all hidden group-hover:flex" />
-      </Carousel>
+    <Link
+      href={`/apartments/${apartment.id}`}
+      key={apartment.id}
+      className="group"
+    >
+      <ImagesCarousel images={apartment.images} />
       <div className="py-2">
         <div className="flex items-start justify-between">
           <div>
@@ -66,6 +40,6 @@ export function ApartmentCard({ apartment }: { apartment: Apartment }) {
           }).format(Number(apartment.price))}
         </h2>
       </div>
-    </div>
+    </Link>
   );
 }
