@@ -1,4 +1,5 @@
 import { reset, seed } from 'drizzle-seed';
+import { env } from '@/config';
 
 export async function seedApartments(db, schema) {
   await reset(db, schema);
@@ -79,7 +80,7 @@ export async function seedApartments(db, schema) {
         }),
         createdAt: funcs.default({ defaultValue: new Date() }),
       },
-      count: 20,
+      count: env.SEEDING_COUNT,
     },
   }));
 }

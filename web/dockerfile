@@ -6,10 +6,11 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-COPY ./.env.example ./.env
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
+
+ENV NEXT_PUBLIC_API_URL=http://backend:5000/v1
 
 # Build the app
 RUN npm run build

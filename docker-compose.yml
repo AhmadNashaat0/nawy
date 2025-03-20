@@ -1,4 +1,3 @@
-version: "3"
 services:
   db:
     image: postgres:latest
@@ -17,6 +16,10 @@ services:
       context: ./api
       dockerfile: Dockerfile
     container_name: nawy-backend
+    environment:
+      - DATABASE_URL=postgres://nawy:123456@db:5432/nawy
+      - ENABLE_SEED=true
+      - SEEDING_COUNT=30
     ports:
       - "5000:5000"
     depends_on:
