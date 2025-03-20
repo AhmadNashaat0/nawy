@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: nawy-db-only
+    environment:
+      - POSTGRES_USER=nawy
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=nawy
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-only:/var/lib/postgresql/data
+
+volumes:
+  db-only:
