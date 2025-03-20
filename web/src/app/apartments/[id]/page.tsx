@@ -1,5 +1,6 @@
 import BreadcrumbBar from "@/components/breadcrumb-bar";
 import { ImagesCarousel } from "@/components/image-carousel";
+import Expandable from "@/components/image-expandable";
 import { buttonVariants } from "@/components/ui/button";
 import { getApartment } from "@/features/apartments/api/get-apartment";
 import { amenitiesIconList } from "@/features/apartments/utils/amenities-list";
@@ -65,21 +66,30 @@ export default async function ApartmentPage({
           <PenIcon />
         </Link>
       </div>
-      <div className="flex flex-col gap-4">
-        <h4 className="text-xl font-medium">Amenities</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {apartment.amenities.map((amenity, index) => {
-            const Icon =
-              amenitiesIconList[amenity as keyof typeof amenitiesIconList].Icon;
-            return (
-              <div className="p-4 rounded-xl border" key={index}>
-                <Icon />
-                {amenity}
-              </div>
-            );
-          })}
+      {apartment.amenities && apartment.amenities.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <h4 className="text-xl font-medium">Amenities</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            {apartment.amenities.map((amenity, index) => {
+              const Icon =
+                amenitiesIconList[amenity as keyof typeof amenitiesIconList]
+                  .Icon;
+              return (
+                <div className="p-4 rounded-xl border" key={index}>
+                  <Icon />
+                  {amenity}
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
+      {apartment.images && apartment.images.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <h4 className="text-xl font-medium">Images</h4>
+          <Expandable list={apartment.images} />
+        </div>
+      )}
     </section>
   );
 }
