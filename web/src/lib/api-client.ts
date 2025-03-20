@@ -34,25 +34,29 @@ async function fetchApi<T>(
 
   const fullUrl = buildUrlWithParams(`${env.API_URL}${url}`, params);
 
-  const response = await fetch(fullUrl, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: body ? JSON.stringify(body) : undefined,
-    credentials: "include",
-    cache,
-    next,
-  });
+  try {
+    const response = await fetch(fullUrl, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: body ? JSON.stringify(body) : undefined,
+      credentials: "include",
+      cache,
+      next,
+    });
 
-  if (!response.ok) {
-    const message = (await response.json()) || response.statusText;
-    console.error(message);
-    return undefined;
+    if (!response.ok) {
+      const message = (await response.json()) || response.statusText;
+      console.error(message);
+      return undefined;
+    }
+
+    return response.json();
+  } catch (e) {
+    console.log("api client error:", e);
   }
-
-  return response.json();
 }
 
 export const api = {
