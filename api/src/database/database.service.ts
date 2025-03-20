@@ -48,7 +48,9 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       this.logger.error(`Migration failed: ${error.message}`, error.stack);
     }
 
-    await seedApartments(this.db, schema);
+    if (env.ENABLE_SEED) {
+      await seedApartments(this.db, schema);
+    }
 
     this.pool.on('error', (err) => {
       console.error('Unexpected error on idle database client', err);

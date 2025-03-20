@@ -6,6 +6,7 @@ const EnvSchema = z.object({
   DATABASE_URL: z.string().url(),
   POOL_SIZE: z.coerce.number().default(10),
   DB_IDLE_TIMEOUT: z.coerce.number().default(30000),
+  ENABLE_SEED: z.coerce.boolean().default(false),
 });
 
 export const env = EnvSchema.parse(process.env);
