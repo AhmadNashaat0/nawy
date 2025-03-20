@@ -1,10 +1,12 @@
+FROM node:20-alpine
+
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
-COPY ./env.example ./env
+COPY ./.env.example ./.env
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED 1

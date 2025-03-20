@@ -12,5 +12,25 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
 
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: nawy-backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: nawy-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
 volumes:
   database:
